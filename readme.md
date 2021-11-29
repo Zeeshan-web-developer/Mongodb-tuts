@@ -317,3 +317,74 @@ Following example will retrieve the document(s) whose age is not greater than 25
 }
 ```
 
+# **MongoDB Update Methods**
+1. update
+2. save
+3. findOneAndUpdate()
+4. updateOne() 
+5. updateMany() 
+```javascript
+MongoDB Update() Method
+The update() method updates the values in the existing document
+>db.mycol.update({'title':'MongoDB Overview'},{$set:{'title':'New MongoDB Tutorial'}})
+By default, MongoDB will update only a single document. To update multiple documents, you need to set a parameter 'multi' to true.
+
+>db.mycol.update({'title':'MongoDB Overview'},
+   {$set:{'title':'New MongoDB Tutorial'}},{multi:true})
+
+```
+```javascript
+MongoDB updateOne() method
+This methods updates a single document which matches the given filter.
+
+Syntax
+The basic syntax of updateOne() method is as follows −
+
+>db.COLLECTION_NAME.updateOne(<filter>, <update>)
+Example
+> db.empDetails.updateOne(
+	{First_Name: 'Radhika'},
+	{ $set: { Age: '30',e_mail: 'radhika_newemail@gmail.com'}}
+)
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+>
+```
+
+```javascript
+MongoDB updateMany() method
+The updateMany() method updates all the documents that matches the given filter.
+Syntax
+The basic syntax of updateMany() method is as follows −
+
+>db.COLLECTION_NAME.update(<filter>, <update>)
+Example
+> db.empDetails.updateMany(
+	{Age:{ $gt: "25" }},
+	{ $set: { Age: '00'}}
+)
+{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+```
+# The remove() Method
+MongoDB's remove() method is used to remove a document from the collection. remove() method accepts two parameters. One is deletion criteria and second is justOne flag.
+
+deletion criteria − (Optional) deletion criteria according to documents will be removed.
+
+justOne − (Optional) if set to true or 1, then remove only one document.
+```javascript
+Following example will remove all the documents whose title is 'MongoDB Overview'.
+
+>db.mycol.remove({'title':'MongoDB Overview'})
+```
+```javascript
+Remove Only One
+If there are multiple records and you want to delete only the first record, then set justOne parameter in remove() method.
+
+>db.COLLECTION_NAME.remove(DELETION_CRITERIA,1)
+```
+```javascript
+Remove All Documents
+If you don't specify deletion criteria, then MongoDB will delete whole documents from the collection. This is equivalent of SQL's truncate command.
+
+> db.mycol.remove({})
+```
+
